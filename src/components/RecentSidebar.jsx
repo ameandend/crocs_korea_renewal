@@ -7,13 +7,13 @@ import { useNavigate } from "react-router-dom";
 const RecentSidebar = ({ isOpen, onClose }) => {
   const { recentProducts, clearAll } = useRecentProductsStore();
   const navigate = useNavigate();
-  const formatPrice = (price, discountPrice) => {
-    return new Intl.NumberFormat("ko-KR").format(price);
-  };
 
-  // 브라우저 콘솔에서 확인
-  localStorage.getItem("recent-products-storage");
-  // 이 부분은 제거하거나 개발 환경에서만 실행
+  // 사용하지 않는 formatPrice는 주석 처리
+  // const formatPrice = (price, discountPrice) => {
+  //   return new Intl.NumberFormat("ko-KR").format(price);
+  // };
+
+  // 브라우저 콘솔에서 확인 (개발환경에서만)
   useEffect(() => {
     if (process.env.NODE_ENV === "development") {
       console.log(
@@ -33,7 +33,6 @@ const RecentSidebar = ({ isOpen, onClose }) => {
 
     if (isOpen) {
       document.addEventListener("keydown", handleEsc);
-      // 배경 스크롤 방지
       document.body.style.overflow = "hidden";
     }
 
@@ -84,7 +83,8 @@ const RecentSidebar = ({ isOpen, onClose }) => {
               )}
             </div>
 
-            {recentProducts.length == 0 ? (
+            {/* '==' → '===' 교체 */}
+            {recentProducts.length === 0 ? (
               <div className="recent-side-products__empty">
                 <div className="empty-icon">👀</div>
                 <p>최근 본 상품이 없습니다</p>
@@ -95,19 +95,13 @@ const RecentSidebar = ({ isOpen, onClose }) => {
                   <div
                     key={item.id}
                     className="product-item"
-                    onClick={() => navigate(item.link)} // 링크 이동추가
-                    style={{ cursor: "pointer" }} // 클릭 표시
+                    onClick={() => navigate(item.link)}
+                    style={{ cursor: "pointer" }}
                   >
                     <div className="product-meta">
                       <span className="viewed-time">
                         {formatDate(item.viewedAt)}
                       </span>
-                      {/* 리뷰별점표시 */}
-                      {/* {item.rating && (
-                                <span className='rating'>
-                                    ⭐ {item.rating} ({item.reviewCount})
-                                </span>
-                            )} */}
                     </div>
                     <div className="product_imgbox">
                       <img src={item.image} alt={item.name} />
@@ -115,31 +109,10 @@ const RecentSidebar = ({ isOpen, onClose }) => {
 
                     <div className="product_textbox">
                       <h3 className="product-name">{item.name}</h3>
-                      {/* <p className='product-category'>{item.category}</p> */}
-                      {/* <div className='product-price-wrap'>
-                        <span className='price-text'>
-                          {item.discountPrice == ""
-                            ? item.price
-                            : item.discountPrice}
-                        </span>
-                        <span className='price-text'>
-                          {item.discountPrice == "" ? "" : item.originPrice}
-                        </span>
-                        {item.discount && (
-                          <span className='discount'>{item.discount}%</span>
-                        )}
-                      </div> */}
                     </div>
 
                     <div className="product-actions">
-                      {/* <button  className="remove-btn"
-                onClick={() => removeProduct(product.id)}
-                aria-label="삭제"
-              >
-                ✕
-              </button> */}
-                      {/* <button className="cart-btn">장바구니</button> */}
-                      {/* <button className="buy-btn">구매하기</button> */}
+                      {/* 버튼들은 필요시 추가 */}
                     </div>
                   </div>
                 ))}

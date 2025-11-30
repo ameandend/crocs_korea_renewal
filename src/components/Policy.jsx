@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 import { joinStore } from "../store/joinStore";
 import PolicyPopup from "./PolicyPopup";
 

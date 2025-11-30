@@ -109,7 +109,7 @@ const OrderForm = forwardRef((props, ref) => {
         }
       }
     }
-  }, [user]);
+  }, [user, emailDomains]);
 
   // 쿠폰 할인 금액 계산
   const calculateDiscount = () => {
@@ -153,7 +153,7 @@ const OrderForm = forwardRef((props, ref) => {
     if (onCouponUpdate) {
       onCouponUpdate(selectedCoupon, discount);
     }
-  }, [selectedCoupon, subtotal, onCouponUpdate]);
+  }, [selectedCoupon, subtotal, onCouponUpdate, calculateDiscount]);
 
   // 날짜 포맷 함수
   const formatDate = (date) => {
@@ -685,7 +685,7 @@ const OrderForm = forwardRef((props, ref) => {
                 <p className="no-coupon">사용 가능한 쿠폰이 없습니다.</p>
               ) : (
                 availableCoupons.map((coupon) => {
-                  const previewDiscount = calculateCouponDiscount(coupon);
+                  // const previewDiscount = calculateCouponDiscount(coupon);
 
                   return (
                     <div

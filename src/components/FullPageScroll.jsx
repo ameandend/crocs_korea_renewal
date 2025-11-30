@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import "./scss/FullPageScroll.scss";
 
 const FullPageScroll = ({ children, onSectionChange }) => {
@@ -26,20 +26,22 @@ const FullPageScroll = ({ children, onSectionChange }) => {
   }, [currentIndex]);
 
   // 스크롤 이동 함수
-  const scrollToSection = (index) => {
-    if (!sections[index]) return;
+  const scrollToSection = useCallback(
+    (index) => {
+      if (!sections[index]) return;
 
-    isScrolling.current = true;
+      isScrolling.current = true;
 
-    sections[index].scrollIntoView({
-      behavior: "smooth",
-    });
+      sections[index].scrollIntoView({
+        behavior: "smooth",
+      });
 
-    setTimeout(() => {
-      isScrolling.current = false;
-    }, 400);
-  };
-
+      setTimeout(() => {
+        isScrolling.current = false;
+      }, 400);
+    },
+    [sections] // sections 배열이 바뀌면 새로 생성
+  );
   // currentIndex 바뀔 때 실제 스크롤 + 부모에게 알림
   useEffect(() => {
     if (sections.length === 0) return;
@@ -49,7 +51,7 @@ const FullPageScroll = ({ children, onSectionChange }) => {
     if (onSectionChange) {
       onSectionChange(currentIndex, sections[currentIndex]);
     }
-  }, [currentIndex, sections, onSectionChange]);
+  }, [currentIndex, sections, onSectionChange, scrollToSection]);
 
   // 마우스 휠 (한 번만 등록)
   useEffect(() => {
