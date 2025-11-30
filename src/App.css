@@ -1,8 +1,17 @@
 .App {
+<<<<<<< HEAD
   text-align: center;
 }
 
 .App-logo {
+=======
+    /* text-align: center; */
+    overflow: hidden;
+    /* overflow: visible; */
+}
+
+/* .App-logo {
+>>>>>>> ba48d3279e5f388cf91ffc77c43b2a345ab24891
   height: 40vmin;
   pointer-events: none;
 }
@@ -35,4 +44,8 @@
   to {
     transform: rotate(360deg);
   }
+<<<<<<< HEAD
 }
+=======
+} */
+>>>>>>> ba48d3279e5f388cf91ffc77c43b2a345ab24891
